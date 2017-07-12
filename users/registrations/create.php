@@ -12,12 +12,13 @@ try {
     $name = h($_POST['name']);
     $email = h($_POST['email']);
     $password = h($_POST['password']);
-    $stmt->execute();
+    if ($email === "" || $password === ""){
+      echo "Email or Password can't be blank.";
+    } else {
+      $stmt->execute();
+      header("Location:../../threads/index.php");
+    }
   }
-
-  $db = null;
-  header("Location:../../threads/index.php");
-
 } catch (PDOException $e) {
   echo "登録に失敗しました。";
   echo "<a href='new.php'>Back</a>";
