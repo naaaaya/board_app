@@ -13,10 +13,15 @@ try {
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $content = h($_POST['content']);
     $user_id = $current_user['id'];
-    $stmt->execute();
+    if ($content === ""){
+      echo "コメントを入力してください";
+    } else {
+      $stmt->execute();
+      header("Location:show.php?id=". $thread_id );
+    }
   }
 
-  header("Location:show.php?id=". $thread_id );
+
 } catch (PDOException $e) {
   echo "作成に失敗しました。";
   echo "<a href='show.php?id=". $thread_id . "'>Back</a>";
